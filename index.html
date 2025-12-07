@@ -19,7 +19,7 @@
         }
 
         html {
-            scroll-behavior: smooth; /* גלישה נעימה לכל העמוד */
+            scroll-behavior: smooth;
         }
 
         * {
@@ -54,9 +54,12 @@
             width: 0%;
         }
 
-        /* Navigation */
+        /* Navigation - Glassmorphism */
         nav {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.65); /* שקיפות */
+            backdrop-filter: blur(12px); /* טשטוש הזכוכית */
+            -webkit-backdrop-filter: blur(12px); /* תמיכה לספארי */
+            
             padding: 1.2rem 5%;
             position: fixed;
             width: 100%;
@@ -64,9 +67,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(8px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
 
         .logo {
@@ -93,33 +96,47 @@
 
         .nav-links a:hover { color: var(--accent); }
 
-        /* Hero Section - עיצוב גריד למילוי החלל */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
-            padding: 6rem 10% 2rem; /* הוספת ריפוד עליון שלא יוסתר ע"י התפריט */
+            padding: 8rem 10% 2rem;
             background-color: var(--bg-subtle);
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 30px 30px;
             
-            /* שימוש בגריד לשני חלקים */
             display: grid;
-            grid-template-columns: 1.2fr 1fr; /* ימין (טקסט) רחב יותר, שמאל (קוד) */
+            grid-template-columns: 1.2fr 1fr;
             align-items: center;
             gap: 4rem;
         }
 
-        /* צד ימין - טקסט */
         .hero-content {
             z-index: 2;
         }
 
+        /* שם המפתח - קבוע */
         .hero h1 {
             font-size: 4rem;
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.2rem;
             color: var(--primary);
             letter-spacing: -2px;
+        }
+
+        /* עוטף לטקסט המוקלד - מונע קפיצות */
+        .typing-wrapper {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--primary);
+            letter-spacing: -2px;
+            
+            /* שמירת מקום קבוע */
+            min-height: 1.2em; 
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
 
         .hero-subtitle {
@@ -135,7 +152,6 @@
             gap: 1rem;
         }
 
-        /* צד שמאל - חלון קוד מעוצב */
         .hero-visual {
             position: relative;
             z-index: 1;
@@ -147,7 +163,7 @@
             box-shadow: 0 20px 50px -10px rgba(0,0,0,0.2);
             overflow: hidden;
             font-family: 'Fira Code', monospace;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg); /* אפקט תלת מימד עדין */
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
             transition: transform 0.3s ease;
         }
 
@@ -176,12 +192,11 @@
         }
 
         .code-line { display: block; }
-        .keyword { color: #c084fc; } /* סגול */
-        .string { color: #86efac; } /* ירוק */
-        .property { color: #93c5fd; } /* תכלת */
+        .keyword { color: #c084fc; } 
+        .string { color: #86efac; } 
+        .property { color: #93c5fd; } 
         .cursor { display: inline-block; width: 8px; height: 18px; background: #3b82f6; animation: blink 1s infinite; vertical-align: middle; }
 
-        /* כפתורים */
         .btn {
             padding: 0.9rem 2rem;
             border-radius: 8px;
@@ -214,7 +229,6 @@
             background: white;
         }
 
-        /* אנימציית הקלדה */
         .typewriter {
             color: var(--accent);
             font-weight: 600;
@@ -222,7 +236,6 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* Sections General */
         section { padding: 6rem 10%; }
 
         .section-title {
@@ -259,7 +272,6 @@
         }
 
         .skill-card:hover { border-color: var(--accent); }
-
         .skill-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
         .skill-name { font-weight: 600; font-size: 0.9rem; }
 
@@ -327,11 +339,8 @@
         .project-link:first-child { border-left: 1px solid var(--border); }
         .project-link:hover { background: var(--bg-subtle); color: var(--accent); }
 
-        /* Contact & Footer */
         #contact { background: var(--bg-subtle); text-align: center; border-top: 1px solid var(--border); }
-        
         .social-icons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
-        
         .social-icon { color: var(--text-main); transition: color 0.3s, transform 0.3s; }
         .social-icon:hover { color: var(--accent); transform: scale(1.1); }
         
@@ -347,15 +356,13 @@
         /* Mobile Optimization */
         @media (max-width: 900px) {
             .hero {
-                grid-template-columns: 1fr; /* טור אחד במקום שניים */
+                grid-template-columns: 1fr;
                 text-align: center;
                 gap: 3rem;
                 padding-top: 8rem;
             }
 
             .hero-content { order: 1; }
-            
-            /* במובייל חלון הקוד יורד למטה */
             .hero-visual { 
                 order: 2; 
                 margin: 0 auto;
@@ -364,6 +371,11 @@
             }
 
             .hero h1 { font-size: 3rem; }
+            .typing-wrapper { 
+                font-size: 3rem; 
+                justify-content: center; /* מרכוז הטקסט המוקלד במובייל */
+            }
+
             .hero-subtitle { margin: 0 auto 2rem; font-size: 1.1rem; }
             .cta-buttons { justify-content: center; }
         }
@@ -373,10 +385,12 @@
                 top: auto;
                 bottom: 0;
                 border-bottom: none;
-                border-top: 1px solid var(--border);
+                border-top: 1px solid rgba(255, 255, 255, 0.5);
                 padding: 0.8rem;
                 justify-content: center;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
             }
             .logo { display: none; }
             .nav-links { gap: 1.5rem; width: 100%; justify-content: space-around; }
@@ -387,9 +401,7 @@
             .btn { width: 100%; justify-content: center; display: flex; }
             .cta-buttons { flex-direction: column; width: 100%; }
             
-            /* הקטנת חלון הקוד במובייל */
             .window-body { font-size: 0.8rem; padding: 15px; }
-            
             footer { padding-bottom: 5rem; }
         }
     </style>
@@ -403,7 +415,12 @@
     <section class="hero" id="about">
         
         <div class="hero-content">
-            <h1>Simcha Sucot<br><span class="typewriter" id="typing-text"></span></h1>
+            <h1>Simcha Sucot</h1>
+            
+            <div class="typing-wrapper">
+                <span class="typewriter" id="typing-text"></span>
+            </div>
+
             <p class="hero-subtitle">מפתח Full Stack שמתמקד בבניית מוצרים נקיים, יציבים ומדויקים. הופך בעיות מורכבות לקוד פשוט.</p>
             
             <div class="cta-buttons">
